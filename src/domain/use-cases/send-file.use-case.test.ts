@@ -38,4 +38,32 @@ describe("Pruebas en el pluging send-file-use-case", () => {
     expect(checkFile).toBe(true);
     expect(fileContent).toEqual(options.fileContent);
   });
+
+  test("should return false if directory could no be created  ", () => {
+    const options = { fileContent: "test content" };
+    const sendFile = new SendFile();
+
+    const mkdirSyncSpy = jest.spyOn(fs, "mkdirSync").mockImplementation(() => {
+      throw new Error("custom error desde el testing");
+    });
+    const result = sendFile.execute(options);
+
+    expect(result).toBe(false);
+    mkdirSyncSpy.mockRestore();
+  });
+
+  test("should return false if file could no be created", () => {
+    const options = { fileContent: "test content" };
+    const sendFile = new SendFile();
+
+    const writeFileSyncSpy = jest.spyOn(fs, 'writeFileSync').mockImplementation(()=> {
+      throw new Error('test error:  file could no be created');
+    });
+
+    const result = sendFile.execute(options);
+
+    expect(result).toBeFalsy(); 
+    writeFileSyncSpy.mockRestore();
+  });
 });
+ 
