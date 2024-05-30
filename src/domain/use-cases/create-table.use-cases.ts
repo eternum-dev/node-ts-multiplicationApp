@@ -9,16 +9,16 @@ interface CreateTableOptions {
 
 export class CreateTable implements CrateTableUseCase {
   constructor() {
-   /**
-    * D-I DEpendecy Injection
-    *  */ 
+    /**
+     * D-I DEpendecy Injection
+     *  */
   }
 
   execute({ base, limit = 10 }: CreateTableOptions) {
     let ouputMessage = "";
 
-    for (let i = 1; i < limit; i++) {
-      ouputMessage += `${base} X ${i} = ${base * i}\n`;
+    for (let i = 1; i <= limit; i++) {
+      ouputMessage += `${base} X ${i} = ${base * i}${i  < limit ? "\n": ''}`;
     }
 
     return ouputMessage;
