@@ -20,7 +20,8 @@ export class SendFile implements SendFileUseCase {
       fs.mkdirSync(fileDestination, { recursive: true });
       fs.writeFileSync(`${fileDestination}/${fileName}.txt`, fileContent);
     } catch (error) {
-      console.error(error);
+      // console.error(error);
+      return false;
     }
 
     return true;
