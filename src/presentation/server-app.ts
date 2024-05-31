@@ -17,11 +17,16 @@ export class ServerApp {
     fileName,
     fileDestination,
   }: RunOptions) {
-    console.log("Server Running...");
-
+    console.log("Server Running...")
     const table = new CreateTable().execute({ base, limit });
 
     if (showTable) console.log(table);
-    const wasCreate = new SendFile().execute({ fileContent: table, fileName, fileDestination });
+    const wasCreate = new SendFile().execute({
+      fileContent: table,
+      fileName,
+      fileDestination,
+    });
+
+    wasCreate ? console.log("ha sido creado") : console.error("algo error");
   }
 }
